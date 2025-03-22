@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque</title>
+    <link id="style" rel="stylesheet">
+</head>
+<body>
+    <div id="pesquisa">
+        <span>Pesquisar:</span>
+        <input class="campo" type="text" id="pesquisaCampo" onkeyup="pesquisar()">
+
+    </div>
+    <div id="painel">
+        <div>
+            <div>
+                <span>Produto</span>
+            </div>
+            <div class="estoque">
+            </div>
+        </div>
+        <div>
+            <div>
+                <span>Compra</span>
+            </div>
+            <div class="estoque">
+
+            </div>
+        </div>
+        <div>
+            <div>
+                <span>Venda</span>
+
+            </div>
+            <div class="estoque">
+
+            </div>
+        </div>
+        <div>
+            <div>
+                <span>Quantidade</span>
+
+            </div>
+            <div class="estoque">
+
+            </div>
+        </div>
+    </div>
+    <div id="navegacao">
+        <div id="cadastrarNav">
+            <span class="navegacaoOpcao">
+                Cadastrar Produto
+            </span>
+        </div>
+        <div id="estoque">
+            <span class="navegacaoOpcao">
+                Estoque
+            </span>
+        </div>
+        <div>
+            <span class="navegacaoOpcao">
+                Cadastrar Produto
+            </span>
+        </div>
+    </div>
+</body>
+
+<script id="script" type="text/javascript"></script>
+<script>
+    const style = document.getElementById('style')
+    const script = document.getElementById('script')
+    let caminhoJs = localStorage.getItem('inicio') + 'src/script.js'
+    let caminhoCss = localStorage.getItem('inicio') + 'src/style.css'
+    style.href = caminhoCss
+    script.src = caminhoJs
+</script>
+</html>

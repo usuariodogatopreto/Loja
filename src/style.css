@@ -1,0 +1,109 @@
+body {
+    padding: 0;
+    margin: 0;
+    display:flex;
+    justify-content: center;
+    font-family: Arial;
+}
+
+
+#centro {
+    position:absolute;
+    top: 40%;
+    transform: translate(0, -50%);
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    border: 1px solid black;
+    padding: 30px;
+    border-radius: 20px;
+    > button {
+        font-size: 20px;
+        border-radius: 8px;
+        width: 60%;
+    }
+}
+
+.campo {
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 2px 2px 2px 5px;
+}
+
+.grupo {
+    display:flex;
+    flex-direction: column;
+    gap: 2px;
+    > span {
+        font-size: 20px;
+    }
+
+}
+
+#navegacao {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    display:flex;
+    flex-direction: row;
+    align-items: end;
+    > div {
+        border: 1px solid black;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 10px 0px 10px;
+        font-size: 18px;
+        height: 40px;
+        cursor: pointer
+    }
+
+    > div:hover {
+        background-color: lightgray
+    }
+
+    #cadastrarNav {
+        font-size: 23px;
+        padding: 5px 15px 5px 10px;
+        height: 50px;
+    }
+}
+
+#painel {
+    position: absolute;
+    top: 20vh;
+    display:flex;
+    > div {
+        .estoque {
+            border: none;
+            padding: 0;
+            > span {
+                border: 1px solid;
+                padding: 10px;
+                display:flex;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+        > div {
+            border: 1px solid;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }
+    }
+}
+
+#pesquisa {
+    position: absolute;
+    top: 7vh;
+    display:flex;
+    gap: 20px;
+    font-size: 20px;
+}
+
+
+
