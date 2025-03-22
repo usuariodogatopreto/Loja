@@ -3,21 +3,17 @@ const cadastrarNav = document.getElementById('cadastrarNav')
 const estoqueNav = document.getElementById('estoque')
 const estoque = document.getElementsByClassName('estoque')
 const produto = new Object()
+let caminhoPai
+
 let produtos = localStorage.getItem('estoque')
 let pesquisa
 let itemSpan
-let caminhoPai
 let nome
 let compra
 let venda
 
-if (localStorage.getItem('inicio') == undefined) {
-    localStorage.setItem('inicio', window.location.href)
-    caminhoPai = localStorage.getItem('inicio')
-} else {
-    caminhoPai = localStorage.getItem('inicio')
-}
 
+caminhoPai = localStorage.getItem('inicio')
 
 function setItem(chave, valor) {
     localStorage.setItem(chave, valor)
