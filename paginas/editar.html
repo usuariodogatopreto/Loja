@@ -4,19 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./src/style.css" rel="stylesheet">
-    <style>
-        #cadastrarNav {
-            font-size: 23px;
-            padding: 5px 15px 5px 10px;
-            height: 50px;
-        }
-    </style>
-    <meta id="id" content="1">
-    <title>Cadastrar Produtos</title>
+    <title>Editar Produto</title>
+    <link rel="stylesheet" id="style">
+
 </head>
 
 <body>
+    
     <div id="centro">
         <div class="grupo">
             <span>Nome do produto:</span>
@@ -24,13 +18,17 @@
         </div>
         <div class="grupo">
             <span>Valor de compra:</span>
-            <input name="compra" class="campo" type="number" onkeyup="valido(); enter(event, 'venda')">
+            <input name="compra" class="campo" type="number" onkeyup="valido(); enter(event, 'venda')"    >
         </div>
         <div class="grupo">
             <span>Valor de venda:</span>
-            <input name="venda" class="campo" type="number" onkeyup="valido(); enter(event, 'button')">
+            <input name="venda" class="campo" type="number" onkeyup="valido(); enter(event, 'quantidade')">
         </div>
-        <button id="cadastrar" onclick="cadastrarProduto()" disabled>Cadastrar</button>
+        <div class="grupo">
+            <span>Quantidade</span>
+            <input name="quantidade" class="campo" type="number" onkeyup="valido(); enter(event, 'button')">
+        </div>
+        <button id="cadastrar" onclick="editar()" disabled>Editar</button>
     </div>
     <div id="navegacao">
         <div id="cadastrarNav" class="botaoNav">
@@ -50,14 +48,15 @@
         </div>
     </div>
 </body>
-<script src="./src/script.js" type="text/javascript"></script>
+<script id="script" type="text/javascript"></script>
+
 <script>
-
-    if (localStorage.getItem('inicio') != window.location.href) {
-        localStorage.setItem('inicio', window.location.href)
-    }
-
-
+    const script = document.getElementById('script')
+    const style = document.getElementById('style')
+    const caminhoJs = localStorage.getItem('inicio') + 'src/script.js'
+    const caminhoCss = localStorage.getItem('inicio') + 'src/style.css'
+    script.src = caminhoJs
+    style.href = caminhoCss
 </script>
 
 </html>

@@ -2,16 +2,22 @@ const cadastrar = document.getElementById('cadastrar')
 const cadastrarNav = document.getElementById('cadastrarNav')
 const estoqueNav = document.getElementById('estoque')
 const estoque = document.getElementsByClassName('estoque')
+const totalSpan = document.getElementById('total')
 const produto = new Object()
-let caminhoPai
-
+const id = localStorage.getItem('idProduto')
 let produtos = localStorage.getItem('estoque')
+let total = 0 
+let caminhoPai
 let pesquisa
 let itemSpan
 let nome
 let compra
 let venda
-
+let quantidade
+let nomeCampo
+let compraCampo
+let vendaCampo
+let quantidadeCampo
 
 caminhoPai = localStorage.getItem('inicio')
 
@@ -99,31 +105,104 @@ function pesquisar() {
     produtos.forEach((item, id) => {
         if (item.nome.includes(pesquisa.toUpperCase())) {
             estoque[0].innerHTML = estoque[0].innerHTML + `<span id='${id}'>${item.nome}</span>`
-            estoque[1].innerHTML = estoque[1].innerHTML + `<span>${item.compra}</span>`
-            estoque[2].innerHTML = estoque[2].innerHTML + `<span>${item.venda}</span>`
-            estoque[3].innerHTML = estoque[3].innerHTML + `<span>${item.quantidade}</span>`
+            estoque[1].innerHTML = estoque[1].innerHTML + `<span id='${id}'>${item.compra}</span>`
+            estoque[2].innerHTML = estoque[2].innerHTML + `<span id='${id}'>${item.venda}</span>`
+            estoque[3].innerHTML = estoque[3].innerHTML + `<span id='${id}'>${item.quantidade}</span>`
         }
     })
+    let index = 0
+    while(estoque[0].children[index] != undefined) {
+        estoque[0].children[index].addEventListener('click', (e) => {
+            setItem('idProduto', e.srcElement.id)
+            href('./editar.html')
+        })
+        estoque[1].children[index].addEventListener('click', (e) => {
+            setItem('idProduto', e.srcElement.id)
+            href('./editar.html')
+        })
+        estoque[2].children[index].addEventListener('click', (e) => {
+            setItem('idProduto', e.srcElement.id)
+            href('./editar.html')
+        })
+        estoque[3].children[index].addEventListener('click', (e) => {
+            setItem('idProduto', e.srcElement.id)
+            href('./editar.html')
+        })
+        index++
+    }
 
 
 }
 
+function editar() {
+    nome = valueName('nome').toUpperCase()
+    compra = valueName('compra')
+    venda = valueName('venda')
+    quantidade = valueName('quantidade')
+    produto.nome = nome
+    produto.compra = new Number(compra)
+    produto.venda = new Number(venda)
+    produto.quantidade = quantidade
+    produtos[id] = produto
+    setItem('estoque', stringify(produtos))
+    href(caminhoPai + 'paginas/estoque.html')
+    
+}
+
 cadastrarNav.addEventListener('click', () => {
+    if(localStorage.getItem('inicio') == null) {
+        localStorage.setItem('inicio', window.location.href)
+    }    
     window.location = caminhoPai
 })
 
 estoqueNav.addEventListener('click', () => {
+    if(localStorage.getItem('inicio') == null) {
+        localStorage.setItem('inicio', window.location.href)
+    }    
     window.location = caminhoPai + 'paginas/estoque.html'
 })
 if (estoque.length != 0) {
     if (produtos != null) {
         produtos = parse(produtos)
-        produtos.forEach((item) => {
-            estoque[0].innerHTML = estoque[0].innerHTML + `<span>${item.nome}</span>`
-            estoque[1].innerHTML = estoque[1].innerHTML + `<span>${item.compra}</span>`
-            estoque[2].innerHTML = estoque[2].innerHTML + `<span>${item.venda}</span>`
-            estoque[3].innerHTML = estoque[3].innerHTML + `<span>${item.quantidade}</span>`
+        produtos.forEach((item, id) => {
+            estoque[0].innerHTML = estoque[0].innerHTML + `<span id='${id}'>${item.nome}</span>`
+            estoque[1].innerHTML = estoque[1].innerHTML + `<span id='${id}'>${item.compra}</span>`
+            estoque[2].innerHTML = estoque[2].innerHTML + `<span id='${id}'>${item.venda}</span>`
+            estoque[3].innerHTML = estoque[3].innerHTML + `<span id='${id}'>${item.quantidade}</span>`
+            total = total + item.venda * item.quantidade
         })
+        totalSpan.innerText = total.toFixed(2)
+        let index = 0
+        while(estoque[0].children[index] != undefined) {
+            estoque[0].children[index].addEventListener('click', (e) => {
+                setItem('idProduto', e.srcElement.id)
+                href('./editar.html')
+            })
+            estoque[1].children[index].addEventListener('click', (e) => {
+                setItem('idProduto', e.srcElement.id)
+                href('./editar.html')
+            })
+            estoque[2].children[index].addEventListener('click', (e) => {
+                setItem('idProduto', e.srcElement.id)
+                href('./editar.html')
+            })
+            estoque[3].children[index].addEventListener('click', (e) => {
+                setItem('idProduto', e.srcElement.id)
+                href('./editar.html')
+            })
+            index++
+        }
     }
 }
-
+if(window.location == caminhoPai + 'paginas/editar.html') {
+    produtos = parse(produtos)
+    nomeCampo = elementName('nome')
+    compraCampo = elementName('compra')
+    vendaCampo = elementName('venda')
+    quantidadeCampo = elementName('quantidade')
+    nomeCampo.value = produtos[id].nome
+    compraCampo.value = produtos[id].compra
+    vendaCampo.value = produtos[id].venda
+    quantidadeCampo.value = produtos[id].quantidade
+}

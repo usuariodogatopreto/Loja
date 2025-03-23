@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #estoque {
+            font-size: 23px;
+            padding: 5px 15px 5px 10px;
+            height: 50px;
+            
+        }
+    </style>
     <title>Estoque</title>
     <link id="style" rel="stylesheet">
 </head>
 <body>
+    <div id="painelTotalizador">
+        <span>Valor de venda total:</span>
+        <span id="total"></span>
+    </div>
     <div id="pesquisa">
         <span>Pesquisar:</span>
         <input class="campo" type="text" id="pesquisaCampo" onkeyup="pesquisar()">
-
     </div>
     <div id="painel">
         <div>
@@ -31,7 +42,6 @@
         <div>
             <div>
                 <span>Venda</span>
-
             </div>
             <div class="estoque">
 
@@ -48,17 +58,17 @@
         </div>
     </div>
     <div id="navegacao">
-        <div id="cadastrarNav">
+        <div id="cadastrarNav" class="botaoNav">
             <span class="navegacaoOpcao">
                 Cadastrar Produto
             </span>
         </div>
-        <div id="estoque">
+        <div id="estoque" class="botaoNav">
             <span class="navegacaoOpcao">
                 Estoque
             </span>
         </div>
-        <div>
+        <div class="botaoNav">
             <span class="navegacaoOpcao">
                 Cadastrar Produto
             </span>
