@@ -101,7 +101,7 @@ function elementId(id) {
     return document.getElementById(id)
 }
 function valido() {
-    if (window.location == caminhoPai) {
+    if (window.location == caminhoPai + 'paginas/cadastrarProduto.html') {
         nome = valueName('nome')
         compra = valueName('compra')
         venda = valueName('venda')
@@ -658,25 +658,21 @@ if (location == caminhoPai + 'paginas/clientes.html') {
 } else if (location == caminhoPai + 'paginas/prestacoes.html') {
     prestacoes = parse(getItem('prestacoes'))
     if (prestacoes != undefined) {
-
         prestacoes.forEach((prestacao, index) => {
             if (prestacao.mes <= new Date().getMonth()) {
-                prestacoes[index].parcelas--
                 prestacao.mes == 11 ? prestacoes[index].mes = 0 : prestacoes[index].mes++
             }
         })
         prestacoes.forEach((prestacao, index) => {
             prestacao.parcelas == 0 ? prestacoes.splice(index, 1) : null;
         })
-
         prestacoes.forEach((prestacao, index) => {
             let indexMes = prestacao.mes
             for (i = 0; i < 12; i++) {
-                if (i < prestacoes[index].parcelas) {
+                if (i <= prestacoes[index].parcelas) {
                     prestacaoDiv[indexMes].innerHTML = prestacaoDiv[indexMes].innerHTML + `<span id=${index}>${prestacoes[index].prestacao}</span>`
                     totalPrestacoes[indexMes] = totalPrestacoes[indexMes] + Number(prestacoes[index].prestacao)
-                }
-                else {
+                } else {
                     prestacaoDiv[indexMes].innerHTML = prestacaoDiv[indexMes].innerHTML + '<span>.</span>'
                 }
                 indexMes == 11 ? indexMes = 0 : indexMes++
@@ -688,17 +684,14 @@ if (location == caminhoPai + 'paginas/clientes.html') {
                     if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
                         prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
                             setItem('idPrestacao', e.srcElement.id)
-                            console.log('ola')
                             href(caminhoPai + 'paginas/editarPrestacoes.html')
                         })
                     }
                     indexSpan++
                 }
         }
-
         for (i = 0; i < 12; i++) {
             totalPrestacoes[i] != undefined ? prestacaoDiv[i].innerHTML = prestacaoDiv[i].innerHTML + `<span>${totalPrestacoes[i].toFixed(2)}</span>` : null
-
             total = (Number(total) + Number(totalPrestacoes[i])).toFixed(2)
         }
         totalSpan.innerText = total
@@ -892,7 +885,6 @@ if (location == caminhoPai + 'paginas/clientes.html') {
         })
         totalSaldoEstoque = totalEstoque + totalSaldo
     }
-
     totalComprasSpan.innerText = totalCompras.toFixed(2)
     totalVendasSpan.innerText = totalVendas.toFixed(2)
     saldoVendas.innerText = totalSaldoVendas.toFixed(2)
