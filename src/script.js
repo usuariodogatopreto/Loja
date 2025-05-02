@@ -449,41 +449,49 @@ function cadastrarDespesa() {
 }
 
 caixaNav.addEventListener('click', () => {
-    if(getItem('inicio') == null) {
+    if (getItem('inicio') == null) {
         localStorage.setItem('inicio', window.location.href)
     }
+    caminhoPai = getItem('inicio')
+
     window.location = caminhoPai
 })
 cadastrarNav.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         localStorage.setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
+        console.log(caminhoPai)
     }
-    caminhoPai = getItem('inicio')
     window.location = caminhoPai + 'paginas/cadastrarProduto.html'
 })
 
 estoqueNav.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         localStorage.setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
-
     window.location = caminhoPai + 'paginas/estoque.html'
 })
 
 cadastroCliente.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
+
     window.location = caminhoPai + 'paginas/cadastroCliente.html'
 })
 
 clientesNav.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
+
     setItem('retiradaAntigo', 0)
     window.location = caminhoPai + 'paginas/clientes.html'
 })
@@ -491,16 +499,18 @@ clientesNav.addEventListener('click', () => {
 cadastrarCompra.addEventListener('click', () => {
     if (getItem('inicio' == null)) {
         setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
     window.location = caminhoPai + 'paginas/cadastroCompra.html'
 })
 
 comprasNav.addEventListener('click', () => {
     if (getItem('inicio' == null)) {
         setItem('inicio', location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
     setItem('visualizarAno', new Date().getFullYear())
     location = caminhoPai + 'paginas/compras.html'
 })
@@ -508,24 +518,29 @@ comprasNav.addEventListener('click', () => {
 prestacoesNav.addEventListener('click', () => {
     if (getItem('inicio' == null)) {
         setItem('inicio', location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
+
     location = caminhoPai + 'paginas/prestacoes.html'
 })
 
 cadastrarPrestacao.addEventListener('click', () => {
     if (getItem('inicio' == null)) {
         setItem('inicio', location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
+
     location = caminhoPai + 'paginas/cadastrarPrestacoes.html'
 })
 
 caixaMensalNav.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         setItem('inicio', location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
     setItem('visualizarAno', new Date().getFullYear())
     location = caminhoPai + 'paginas/caixaMensal.html'
 })
@@ -533,10 +548,17 @@ caixaMensalNav.addEventListener('click', () => {
 cadastrarDespesasNav.addEventListener('click', () => {
     if (getItem('inicio') == null) {
         setItem('inicio', location.href)
+    } else if (getItem('inicio').includes('index.html')) {
+        caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    caminhoPai = getItem('inicio')
+
     location = caminhoPai + 'paginas/cadastrarDespesas.html'
 })
+
+if (getItem('inicio').includes('index.html')) {
+    caminhoPai = getItem('inicio').replace('index.html', '')
+}
+
 if (location == caminhoPai + 'paginas/clientes.html') {
     retiradaAntigo.innerText = getItem('retiradaAntigo')
     if (clientes != null) {
@@ -625,7 +647,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
 } else if (location == caminhoPai + 'paginas/compras.html') {
     exibirCompras()
     anoExibido.innerText = anoAtual
-    totalSpan.innerText = total
+    totalSpan.innerText = total.toFixed(2)
 } else if (location == caminhoPai + 'paginas/editarCompras.html') {
     idCompra = getItem('editarCompra')
     compra = elementId('valor')
@@ -636,8 +658,9 @@ if (location == caminhoPai + 'paginas/clientes.html') {
 } else if (location == caminhoPai + 'paginas/prestacoes.html') {
     prestacoes = parse(getItem('prestacoes'))
     if (prestacoes != undefined) {
+
         prestacoes.forEach((prestacao, index) => {
-            if (prestacao.mes != new Date().getMonth()) {
+            if (prestacao.mes <= new Date().getMonth()) {
                 prestacoes[index].parcelas--
                 prestacao.mes == 11 ? prestacoes[index].mes = 0 : prestacoes[index].mes++
             }
@@ -645,8 +668,9 @@ if (location == caminhoPai + 'paginas/clientes.html') {
         prestacoes.forEach((prestacao, index) => {
             prestacao.parcelas == 0 ? prestacoes.splice(index, 1) : null;
         })
+
         prestacoes.forEach((prestacao, index) => {
-            let indexMes = new Date().getMonth()
+            let indexMes = prestacao.mes
             for (i = 0; i < 12; i++) {
                 if (i < prestacoes[index].parcelas) {
                     prestacaoDiv[indexMes].innerHTML = prestacaoDiv[indexMes].innerHTML + `<span id=${index}>${prestacoes[index].prestacao}</span>`
@@ -655,19 +679,23 @@ if (location == caminhoPai + 'paginas/clientes.html') {
                 else {
                     prestacaoDiv[indexMes].innerHTML = prestacaoDiv[indexMes].innerHTML + '<span>.</span>'
                 }
+                indexMes == 11 ? indexMes = 0 : indexMes++
+            }
+        })
+        for(indexMes = 0; indexMes < 12; indexMes++) {
                 let indexSpan = 0
                 while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
                     if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
                         prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
                             setItem('idPrestacao', e.srcElement.id)
+                            console.log('ola')
                             href(caminhoPai + 'paginas/editarPrestacoes.html')
                         })
                     }
                     indexSpan++
                 }
-                indexMes == 11 ? indexMes = 0 : indexMes++
-            }
-        })
+        }
+
         for (i = 0; i < 12; i++) {
             totalPrestacoes[i] != undefined ? prestacaoDiv[i].innerHTML = prestacaoDiv[i].innerHTML + `<span>${totalPrestacoes[i].toFixed(2)}</span>` : null
 
@@ -675,6 +703,19 @@ if (location == caminhoPai + 'paginas/clientes.html') {
         }
         totalSpan.innerText = total
         setItem('prestacoes', stringify(prestacoes))
+        for(indexMes = 0; indexMes < 12; indexMes++) {
+                let indexSpan = 0
+                while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
+                    if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
+                        prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
+                            setItem('idPrestacao', e.srcElement.id)
+                            console.log('ola')
+                            href(caminhoPai + 'paginas/editarPrestacoes.html')
+                        })
+                    }
+                    indexSpan++
+                }
+        }
     }
 } else if (location == caminhoPai + 'paginas/editarPrestacoes.html') {
     prestacoes = parse(getItem('prestacoes'))
@@ -709,7 +750,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
                 totalCompras[mes] = totalCompras[mes] + Number(compra.compra)
             }
         })
-        for(i = 0; i < 12; i++) {
+        for (i = 0; i < 12; i++) {
             totalCompras[i] = totalCompras[i].toFixed(2)
         }
     }
@@ -731,7 +772,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
                 totalLucro[mes] = totalLucro[mes] + Number(venda.lucro)
             }
         })
-        for(i = 0; i < 12; i++) {
+        for (i = 0; i < 12; i++) {
             totalVendas[i] = totalVendas[i].toFixed(2)
             totalLucro[i] = totalLucro[i].toFixed(2)
         }
@@ -744,7 +785,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
     totalSaldo.forEach((total, index) => {
         totalSaldo[index] = totalVendas[index] - totalCompras[index]
     })
-    for(i = 0; i < 12; i++) {
+    for (i = 0; i < 12; i++) {
         totalSaldo[i] = totalSaldo[i].toFixed(2)
     }
     totalMargem.forEach((margem, index) => {
@@ -753,7 +794,6 @@ if (location == caminhoPai + 'paginas/clientes.html') {
         }
     })
     for (i = 0; i < 12; i++) {
-        console.log(acumulados)
         acumulados[0] = acumulados[0] + Number(totalCompras[i])
         acumulados[1] = acumulados[1] + Number(totalVendas[i])
         acumulados[2] = acumulados[2] + Number(totalSaldo[i])
@@ -798,7 +838,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
     despesasDiv.innerHTML = despesasDiv.innerHTML + `<span>${medias[3]}</span>`
     lucroDiv.innerHTML = lucroDiv.innerHTML + `<span>${medias[4]}</span>`
     margemDiv.innerHTML = margemdiv.innerHTML + `<span>${(medias[4] / medias[1] * 100).toFixed(2)}%</span>`
-} else if (location == caminhoPai) {
+} else if (location == caminhoPai || location.href.includes('index.html')) {
     compras = parse(getItem('compras'))
     vendas = parse(getItem('vendas'))
     clientes = parse(getItem('clientes'))
@@ -841,7 +881,6 @@ if (location == caminhoPai + 'paginas/clientes.html') {
     if (prestacoes != undefined) {
         prestacoes.forEach((prestacao) => {
             totalPagar = totalPagar + Number(prestacao.prestacao) * prestacao.parcelas
-            console.log(prestacao)
         })
     }
     totalSaldo = totalCaixa + totalReceber - totalPagar
@@ -852,13 +891,13 @@ if (location == caminhoPai + 'paginas/clientes.html') {
             totalEstoque = totalEstoque + Number(produto.venda) * Number(produto.quantidade)
         })
         totalSaldoEstoque = totalEstoque + totalSaldo
-    } 
+    }
 
     totalComprasSpan.innerText = totalCompras.toFixed(2)
     totalVendasSpan.innerText = totalVendas.toFixed(2)
     saldoVendas.innerText = totalSaldoVendas.toFixed(2)
     lucroAcumulado.innerText = totalLucro.toFixed(2)
-    if(String(totalMargem) == 'NaN') {
+    if (String(totalMargem) == 'NaN') {
         margemAcumulado.innerText = '0%'
     } else {
         margemAcumulado.innerText = totalMargem.toFixed(2) + '%'
