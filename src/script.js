@@ -450,8 +450,8 @@ function cadastrarDespesa() {
 
 if(!location.href.includes('paginas')) {
     setItem('inicio', location)
-    caminhoPai = getItem('inicio')
 }
+caminhoPai = getItem('inicio')
 
 caixaNav.addEventListener('click', () => {
     caminhoPai = getItem('inicio')
@@ -486,12 +486,10 @@ cadastroCliente.addEventListener('click', () => {
 })
 
 clientesNav.addEventListener('click', () => {
-    if (getItem('inicio') == null) {
-        setItem('inicio', window.location.href)
-    } else if (getItem('inicio').includes('index.html')) {
+    if (getItem('inicio').includes('index.html')) {
         caminhoPai = getItem('inicio').replace('index.html', '')
     }
-
+    
     setItem('retiradaAntigo', 0)
     window.location = caminhoPai + 'paginas/clientes.html'
 })
