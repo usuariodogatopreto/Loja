@@ -451,7 +451,8 @@ function cadastrarDespesa() {
 if(!location.href.includes('paginas')) {
     setItem('inicio', location)
 }
-caminhoPai = getItem('inicio')
+caminhoPai = localStorage.getItem('inicio')
+console.log(caminhoPai)
 
 caixaNav.addEventListener('click', () => {
     caminhoPai = getItem('inicio')
