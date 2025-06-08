@@ -72,7 +72,7 @@ let parcelasValue
 let lucro
 let despesas
 let despesaValue
-caminhoPai = localStorage.getItem('inicio')
+caminhoPai = ''
 function setItem(chave, valor) {
     localStorage.setItem(chave, valor)
 }
