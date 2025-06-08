@@ -453,11 +453,7 @@ if(!location.includes('paginas')) {
 }
 
 caixaNav.addEventListener('click', () => {
-    if (getItem('inicio') == null) {
-        localStorage.setItem('inicio', window.location.href)
-    }
     caminhoPai = getItem('inicio')
-
     window.location = caminhoPai
 })
 cadastrarNav.addEventListener('click', () => {
@@ -465,7 +461,6 @@ cadastrarNav.addEventListener('click', () => {
         localStorage.setItem('inicio', window.location.href)
     } else if (getItem('inicio').includes('index.html')) {
         caminhoPai = getItem('inicio').replace('index.html', '')
-        console.log(caminhoPai)
     }
     window.location = caminhoPai + 'paginas/cadastrarProduto.html'
 })
