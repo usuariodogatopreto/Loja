@@ -449,7 +449,7 @@ function cadastrarDespesa() {
 }
 
 if(getItem('inicio') != location) {
-    setItem('inicio', location)
+    setItem('inicio', location.origin)
 }
 
 caixaNav.addEventListener('click', () => {
