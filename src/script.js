@@ -448,7 +448,7 @@ function cadastrarDespesa() {
     href(caminhoPai + 'paginas/caixaMensal.html')
 }
 
-if(!location.includes('paginas')) {
+if(!location.href.includes('paginas')) {
     setItem('inicio', location)
 }
 
