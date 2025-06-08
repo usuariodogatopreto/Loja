@@ -448,8 +448,8 @@ function cadastrarDespesa() {
     href(caminhoPai + 'paginas/caixaMensal.html')
 }
 
-if(getItem('inicio') != location) {
-    setItem('inicio', location.origin)
+if(!location.includes('paginas')) {
+    setItem('inicio', location)
 }
 
 caixaNav.addEventListener('click', () => {
