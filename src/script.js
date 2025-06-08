@@ -450,6 +450,7 @@ function cadastrarDespesa() {
 
 if(!location.href.includes('paginas')) {
     setItem('inicio', location)
+    caminhoPai = getItem('inicio')
 }
 
 caixaNav.addEventListener('click', () => {
