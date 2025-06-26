@@ -72,7 +72,10 @@ let parcelasValue
 let lucro
 let despesas
 let despesaValue
-caminhoPai = ''
+
+if (localStorage.getItem('inicio') != null) caminhoPai = localStorage.getItem('inicio')
+else caminhoPai = window.location; localStorage.setItem('inicio', location.origin + '/')
+
 function setItem(chave, valor) {
     localStorage.setItem(chave, valor)
 }
@@ -140,10 +143,11 @@ function valido() {
 }
 function enter(e, proximo) {
     if (proximo == 'button' && e.key == 'Enter') {
-        if (location == caminhoPai || location == caminhoPai + 'paginas/editar.html') {
+        if (location == caminhoPai + 'paginas/cadastrarProduto.html' || location == caminhoPai + 'paginas/editar.html') {
             cadastrar.click()
         } else if (location == caminhoPai + 'paginas/cadastroCliente.html' || location == caminhoPai + 'paginas/editarCliente.html') {
             cadastrarCliente.click()
+
             if (location == caminhoPai + 'paginas/editarCliente.html') {
                 href(caminhoPai + 'paginas/clientes.html')
             }
@@ -209,12 +213,12 @@ function cadastrarProduto() {
     produtos = getItem('estoque')
     if (produtos == undefined) {
         setItem('estoque', stringify([produto]))
-        href('./')
+        href('')
     } else {
         produtos = parse(produtos)
         produtos.push(produto)
         setItem('estoque', stringify(produtos))
-        href('./')
+        href('')
     }
 }
 
@@ -320,8 +324,8 @@ function cadastrarRecebimentoRetirada() {
         setItem('recebimentosRetiradas', stringify([recebimentoRetirada]))
     } else {
         retiradas = parse(getItem('recebimentosRetiradas'))
-        retiradas.push(recebimentosRetirada)
-        setItem('recebimentosRetiradas', stringify(recebimentosRetirada))
+        retiradas.push(recebimentoRetirada)
+        setItem('recebimentosRetiradas', stringify(retiradas))
     }
     href(caminhoPai + 'paginas/clientes.html')
 }
@@ -448,14 +452,12 @@ function cadastrarDespesa() {
     href(caminhoPai + 'paginas/caixaMensal.html')
 }
 
-if(!location.href.includes('paginas')) {
-    setItem('inicio', location)
-}
-caminhoPai = localStorage.getItem('inicio')
-console.log(caminhoPai)
-
 caixaNav.addEventListener('click', () => {
+    if (getItem('inicio') == null) {
+        localStorage.setItem('inicio', window.location.href)
+    }
     caminhoPai = getItem('inicio')
+
     window.location = caminhoPai
 })
 cadastrarNav.addEventListener('click', () => {
@@ -463,6 +465,7 @@ cadastrarNav.addEventListener('click', () => {
         localStorage.setItem('inicio', window.location.href)
     } else if (getItem('inicio').includes('index.html')) {
         caminhoPai = getItem('inicio').replace('index.html', '')
+        console.log(caminhoPai)
     }
     window.location = caminhoPai + 'paginas/cadastrarProduto.html'
 })
@@ -487,10 +490,12 @@ cadastroCliente.addEventListener('click', () => {
 })
 
 clientesNav.addEventListener('click', () => {
-    if (getItem('inicio').includes('index.html')) {
+    if (getItem('inicio') == null) {
+        setItem('inicio', window.location.href)
+    } else if (getItem('inicio').includes('index.html')) {
         caminhoPai = getItem('inicio').replace('index.html', '')
     }
-    
+
     setItem('retiradaAntigo', 0)
     window.location = caminhoPai + 'paginas/clientes.html'
 })
@@ -677,17 +682,17 @@ if (location == caminhoPai + 'paginas/clientes.html') {
                 indexMes == 11 ? indexMes = 0 : indexMes++
             }
         })
-        for(indexMes = 0; indexMes < 12; indexMes++) {
-                let indexSpan = 0
-                while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
-                    if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
-                        prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
-                            setItem('idPrestacao', e.srcElement.id)
-                            href(caminhoPai + 'paginas/editarPrestacoes.html')
-                        })
-                    }
-                    indexSpan++
+        for (indexMes = 0; indexMes < 12; indexMes++) {
+            let indexSpan = 0
+            while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
+                if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
+                    prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
+                        setItem('idPrestacao', e.srcElement.id)
+                        href(caminhoPai + 'paginas/editarPrestacoes.html')
+                    })
                 }
+                indexSpan++
+            }
         }
         for (i = 0; i < 12; i++) {
             totalPrestacoes[i] != undefined ? prestacaoDiv[i].innerHTML = prestacaoDiv[i].innerHTML + `<span>${totalPrestacoes[i].toFixed(2)}</span>` : null
@@ -695,18 +700,18 @@ if (location == caminhoPai + 'paginas/clientes.html') {
         }
         totalSpan.innerText = total
         setItem('prestacoes', stringify(prestacoes))
-        for(indexMes = 0; indexMes < 12; indexMes++) {
-                let indexSpan = 0
-                while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
-                    if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
-                        prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
-                            setItem('idPrestacao', e.srcElement.id)
-                            console.log('ola')
-                            href(caminhoPai + 'paginas/editarPrestacoes.html')
-                        })
-                    }
-                    indexSpan++
+        for (indexMes = 0; indexMes < 12; indexMes++) {
+            let indexSpan = 0
+            while (prestacaoDiv[indexMes].children[indexSpan] != undefined) {
+                if (prestacaoDiv[indexMes].children[indexSpan].innerText != '.') {
+                    prestacaoDiv[indexMes].children[indexSpan].addEventListener('click', (e) => {
+                        setItem('idPrestacao', e.srcElement.id)
+                        console.log('ola')
+                        href(caminhoPai + 'paginas/editarPrestacoes.html')
+                    })
                 }
+                indexSpan++
+            }
         }
     }
 } else if (location == caminhoPai + 'paginas/editarPrestacoes.html') {
@@ -865,6 +870,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
             totalCaixa = totalCaixa + Number(recebimentosRetirada)
         })
     }
+    console.log(totalCaixa)
     if (clientes != undefined) {
         clientes.forEach((cliente) => {
             totalReceber = totalReceber + Number(cliente.divida)
