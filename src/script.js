@@ -73,8 +73,8 @@ let lucro
 let despesas
 let despesaValue
 
-if (localStorage.getItem('inicio') != null) caminhoPai = localStorage.getItem('inicio')
-else caminhoPai = window.location; localStorage.setItem('inicio', location.origin + '/')
+if (localStorage.getItem('inicio') != null) { caminhoPai = localStorage.getItem('inicio') }
+else { caminhoPai = window.location; localStorage.setItem('inicio', location.origin + '/') }
 
 function setItem(chave, valor) {
     localStorage.setItem(chave, valor)
@@ -560,7 +560,7 @@ cadastrarDespesasNav.addEventListener('click', () => {
 
 if (getItem('inicio').includes('index.html')) {
     caminhoPai = getItem('inicio').replace('index.html', '')
-} 
+}
 
 if (location == caminhoPai + 'paginas/clientes.html') {
     retiradaAntigo.innerText = getItem('retiradaAntigo')
