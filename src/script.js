@@ -74,7 +74,7 @@ let despesas
 let despesaValue
 
 if (localStorage.getItem('inicio') != null) { caminhoPai = localStorage.getItem('inicio') }
-else { caminhoPai = window.location; localStorage.setItem('inicio', location.origin + '/') }
+else { caminhoPai = window.location; localStorage.setItem('inicio', location.href + '/') }
 
 function setItem(chave, valor) {
     localStorage.setItem(chave, valor)
