@@ -457,7 +457,6 @@ caixaNav.addEventListener('click', () => {
         localStorage.setItem('inicio', window.location.href)
     }
     caminhoPai = getItem('inicio')
-
     window.location = caminhoPai
 })
 cadastrarNav.addEventListener('click', () => {
@@ -561,7 +560,7 @@ cadastrarDespesasNav.addEventListener('click', () => {
 
 if (getItem('inicio').includes('index.html')) {
     caminhoPai = getItem('inicio').replace('index.html', '')
-}
+} 
 
 if (location == caminhoPai + 'paginas/clientes.html') {
     retiradaAntigo.innerText = getItem('retiradaAntigo')
@@ -836,6 +835,7 @@ if (location == caminhoPai + 'paginas/clientes.html') {
     lucroDiv.innerHTML = lucroDiv.innerHTML + `<span>${medias[4]}</span>`
     margemDiv.innerHTML = margemdiv.innerHTML + `<span>${(medias[4] / medias[1] * 100).toFixed(2)}%</span>`
 } else if (location == caminhoPai || location.href.includes('index.html')) {
+    localStorage.setItem('inicio', location.href)
     compras = parse(getItem('compras'))
     vendas = parse(getItem('vendas'))
     clientes = parse(getItem('clientes'))
@@ -870,7 +870,6 @@ if (location == caminhoPai + 'paginas/clientes.html') {
             totalCaixa = totalCaixa + Number(recebimentosRetirada)
         })
     }
-    console.log(totalCaixa)
     if (clientes != undefined) {
         clientes.forEach((cliente) => {
             totalReceber = totalReceber + Number(cliente.divida)
@@ -905,4 +904,3 @@ if (location == caminhoPai + 'paginas/clientes.html') {
     saldoSaldo.innerText = totalSaldo.toFixed(2)
     saldoEstoque.innerText = totalSaldoEstoque.toFixed(2)
 }
-
